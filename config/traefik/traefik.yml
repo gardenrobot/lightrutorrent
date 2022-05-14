@@ -1,0 +1,21 @@
+providers:
+  docker:
+    exposedbydefault: False
+
+entrypoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entrypoint:
+          to: websecure
+  websecure:
+    address: ":443"
+
+certificatesresolvers:
+  myres:
+    acme:
+      httpchallenge:
+        entrypoint: web
+      storage: /letsencrypt/acme.json
+      email: changeme@beep.boop

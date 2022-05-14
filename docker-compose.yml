@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+
+  rtorrent:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-rtorrent
+    volumes:
+      - ${rtorrent_downloads}:/downloads/
+      - ${rtorrent_session}:/session/
+      - ./config/rtorrent/:/config/
+      - rtorrent_socket:/rtorrent_socket
+    ports:
+      - 6881:6881/udp
+      - 49164:49164
+    env_file:
+      - .env
+    tty: true
+    stdin_open: true
+    environment:
+      - PUID=${uid}
+      - PGID=${uid}
+
+  # TODO move things into .env
+  # TODO is there a way to make traefik lighter, or a better alternative?
+  rutorrent:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-rutorrent
+    volumes:
+      - ./config/lighttpd/:/etc/lighttpd/
+      - ./config/rutorrent/config.php:/usr/share/webapps/rutorrent/conf/config.php
+      - ./config/rutorrent/plugins.ini:/usr/share/webapps/rutorrent/conf/plugins.ini
+      - rutorrent_settings:/usr/share/webapps/rutorrent/share/settings/
+      - rtorrent_socket:/rtorrent_socket
+    env_file:
+      - .env
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.rutorrent.loadbalancer.server.port=80'
+      - 'traefik.http.routers.rutorrent.rule=Host(`${hostname}`)'
+      - 'traefik.http.routers.rutorrent.entrypoints=websecure'
+      - 'traefik.http.routers.rutorrent.tls.certresolver=myres'
+
+  traefik:
+    image: traefik:v2.6
+    command: "--configFile=/traefik.yml"
+    ports:
+      - '443:443'
+      - '80:80'
+    volumes:
+      - 'traefik_letsencrypt:/letsencrypt'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - ./config/traefik/traefik.yml:/traefik.yml
+
+
+volumes:
+  rtorrent_socket:
+  rutorrent_settings:
+  traefik_letsencrypt:
