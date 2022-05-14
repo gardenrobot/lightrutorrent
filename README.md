@@ -1,6 +1,12 @@
 # Light Rutorrent
 
-A simple, lightweight docker compose that sets up rtorrent + rutorrent + lighttpd + traefik.
+A simple, lightweight docker compose that sets up a torrent client with a web interface.
+
+## Description
+
+rTorrent + ruTorrent + Lighttpd + Traefik.
+
+The goal of this project is a very lightweight docker setup that can be used to quickly spin up ruTorrent.
 
 ## Setup
 
