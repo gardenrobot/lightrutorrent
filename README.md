@@ -6,7 +6,7 @@ A simple, lightweight docker compose that sets up a torrent client with a web in
 
 rTorrent + ruTorrent + Lighttpd + Traefik.
 
-The goal of this project is a very lightweight docker setup that can be used to quickly spin up ruTorrent.
+The goal of this project is a very lightweight docker setup that can be used to quickly spin up ruTorrent with important configuration in one place.
 
 ## Setup
 
