@@ -10,6 +10,11 @@ The goal of this project is a very lightweight docker setup that can be used to 
 
 ## Setup
 
-Edit `.env` to your needs and run
-
-`docker-compose up -d`
+1. Install docker compose.
+1. Open `.env` and edit it according to the comments.
+1. Forward ports if needed:
+    - 80
+    - 443
+    - 49164
+    - 6881/udp
+1. Run `docker-compose up -d`
