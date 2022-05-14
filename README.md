@@ -1,6 +1,6 @@
 # Light Rutorrent
 
-A simple, lightweight docker compose that sets up a torrent client with a web interface.
+A lightweight docker compose that sets up a torrent client with a web interface.
 
 ## Description
 
