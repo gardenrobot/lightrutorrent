@@ -22,8 +22,6 @@ services:
       - PUID=${uid}
       - PGID=${uid}
 
-  # TODO move things into .env
-  # TODO is there a way to make traefik lighter, or a better alternative?
   rutorrent:
     build:
       context: .
@@ -45,7 +43,9 @@ services:
 
   traefik:
     image: traefik:v2.6
-    command: "--configFile=/traefik.yml"
+    command:
+      - '--configFile=/traefik.yml'
+      - '--certificatesresolvers.le.acme.email=${email}'
     ports:
       - '443:443'
       - '80:80'

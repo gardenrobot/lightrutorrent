@@ -18,4 +18,4 @@ certificatesresolvers:
       httpchallenge:
         entrypoint: web
       storage: /letsencrypt/acme.json
-      email: changeme@beep.boop
+      #email: changeme@beep.boop # this is set in docker-compose.yml
