@@ -18,3 +18,4 @@ The goal of this project is a very lightweight docker setup that can be used to 
     - 49164
     - 6881/udp
 1. Run `docker-compose up -d`
+1. Run `docker-compose ps` and check that all 3 containers are up.
