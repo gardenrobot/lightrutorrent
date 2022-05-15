@@ -40,6 +40,8 @@ services:
       - 'traefik.http.routers.rutorrent.rule=Host(`${hostname}`)'
       - 'traefik.http.routers.rutorrent.entrypoints=websecure'
       - 'traefik.http.routers.rutorrent.tls.certresolver=myres'
+      - 'traefik.http.routers.rutorrent.middlewares=rutorrent-auth'
+      - 'traefik.http.middlewares.rutorrent-auth.basicauth.users=${users}'
 
   traefik:
     image: traefik:v2.6
